@@ -28,13 +28,17 @@ class TPQueue {
             delete head;
             head = temp;
             return value;
-        } else {
+        }
+        else {
             throw std::string("Empty!");
         }
     }
-
  public:
     TPQueue() : head(nullptr), tail(nullptr), current(nullptr) {}
+    TPQueue(const T& value) {
+        head = tail = create(value);
+        current = nullptr;
+    }
     ~TPQueue() {
         while (head)
             rmHead();
@@ -42,23 +46,43 @@ class TPQueue {
     bool isEmpty() const {
         return !head;
     }
+    void print() const {
+        ITEM* temp = head;
+        while (temp) {
+            std::cout << temp->value.ch << " "<<temp->value.prior<<std::endl;
+            temp = temp->next;
+        }
+        std::cout << std::endl;
+    }
+
     void push(const T& value) {
         ITEM* temp = create(value);
         if (isEmpty()) {
             head = tail = temp;
         } else {
             current = tail;
-            while (current->prev && current->value.prior < value.prior) {
+            while (current && current->value.prior < value.prior) {
+                //if (current->value.prior >= value.prior) {
+                  //  break;
+                //}
                 current = current->prev;
             }
-            ITEM* tmp_prev = current->prev;
-            current->prev = temp;
-            temp->next = current;
-            if (tmp_prev) {
-                temp->prev = tmp_prev;
-                tmp_prev->next = temp;
-            } else {
+            //ITEM* tmp_next = nullptr;
+            if (!current) { // вставка перед
+                head->prev = temp;
+                temp->next = head;
                 head = temp;
+            } else { // вставка после
+                ITEM* tmp_next = current->next;
+                current->next = temp;
+                temp->prev = current;
+                if (tmp_next) {
+                    temp->next = tmp_next;
+                    tmp_next->prev = temp;
+                }
+                else {
+                    tail = temp;
+                }
             }
         }
     }
@@ -68,8 +92,8 @@ class TPQueue {
 };
 
 struct SYM {
-  char ch;
-  int prior;
+    char ch;
+    int prior;
 };
 
 #endif  // INCLUDE_TPQUEUE_H_
