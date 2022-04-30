@@ -32,12 +32,9 @@ class TPQueue {
             throw std::string("Empty!");
         }
     }
+
  public:
     TPQueue() : head(nullptr), tail(nullptr), current(nullptr) {}
-    TPQueue(const T& value) {
-        head = tail = create(value);
-        current = nullptr;
-    }
     ~TPQueue() {
         while (head)
             rmHead();
