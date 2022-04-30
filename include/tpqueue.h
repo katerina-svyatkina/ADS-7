@@ -33,6 +33,7 @@ class TPQueue {
             throw std::string("Empty!");
         }
     }
+ 
  public:
     TPQueue() : head(nullptr), tail(nullptr), current(nullptr) {}
     TPQueue(const T& value) {
@@ -46,15 +47,6 @@ class TPQueue {
     bool isEmpty() const {
         return !head;
     }
-    void print() const {
-        ITEM* temp = head;
-        while (temp) {
-            std::cout << temp->value.ch << " "<<temp->value.prior<<std::endl;
-            temp = temp->next;
-        }
-        std::cout << std::endl;
-    }
-
     void push(const T& value) {
         ITEM* temp = create(value);
         if (isEmpty()) {
@@ -62,12 +54,8 @@ class TPQueue {
         } else {
             current = tail;
             while (current && current->value.prior < value.prior) {
-                //if (current->value.prior >= value.prior) {
-                  //  break;
-                //}
                 current = current->prev;
             }
-            //ITEM* tmp_next = nullptr;
             if (!current) { // вставка перед
                 head->prev = temp;
                 temp->next = head;
@@ -79,8 +67,7 @@ class TPQueue {
                 if (tmp_next) {
                     temp->next = tmp_next;
                     tmp_next->prev = temp;
-                }
-                else {
+                } else {
                     tail = temp;
                 }
             }
