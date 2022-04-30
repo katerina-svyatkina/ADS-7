@@ -1,6 +1,7 @@
 // Copyright 2022 NNTU-CS
 #ifndef INCLUDE_TPQUEUE_H_
 #define INCLUDE_TPQUEUE_H_
+#include <string>
 
 template<typename T>
 class TPQueue {
@@ -31,7 +32,7 @@ class TPQueue {
             throw std::string("Empty!");
         }
     }
-public:
+ public:
     TPQueue() : head(nullptr), tail(nullptr), current(nullptr) {}
     TPQueue(const T& value) {
         head = tail = create(value);
