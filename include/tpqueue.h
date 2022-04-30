@@ -32,7 +32,7 @@ class TPQueue {
             throw std::string("Empty!");
         }
     }
- 
+
  public:
     TPQueue() : head(nullptr), tail(nullptr), current(nullptr) {}
     ~TPQueue() {
