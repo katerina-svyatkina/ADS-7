@@ -4,7 +4,7 @@
 
 template<typename T>
 class TPQueue {
-  private:
+   private:
     struct ITEM {
         T value;
         ITEM* next;
@@ -28,12 +28,11 @@ class TPQueue {
             delete head;
             head = temp;
             return value;
-        }
-        else {
+        } else {
             throw std::string("Empty!");
         }
     }
-public:
+ public:
     TPQueue() : head(nullptr), tail(nullptr), current(nullptr) {}
     TPQueue(const T& value) {
         head = tail = create(value);
@@ -59,8 +58,7 @@ public:
         ITEM* temp = create(value);
         if (isEmpty()) {
             head = tail = temp;
-        }
-        else {
+        } else {
             current = tail;
             while (current->prev && current->value.prior < value.prior) {
                 current = current->prev;
@@ -71,8 +69,7 @@ public:
             if (tmp_prev) {
                 temp->prev = tmp_prev;
                 tmp_prev->next = temp;
-            }
-            else {
+            } else {
                 head = temp;
             }
         }
